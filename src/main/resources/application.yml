@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: kyc
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus"
+
+kyc:
+  endpoints:
+    document: "http://localhost:9561"
+    biometric: "http://localhost:9562"
+    address: "http://localhost:9563"
+    sanctions: "http://localhost:9564"
+
+  timeout:
+    document: 5s
+    biometric: 8s
+    address: 5s
+    sanctions: 3s
+
+  rate-limit:
+    window-millis: 60000
+    limit: 10
+
+  decision:
+    confidence-threshold: 80
+
+  retry:
+    attempts: 3
+    backoff: 200ms
